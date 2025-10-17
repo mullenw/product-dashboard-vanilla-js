@@ -41,3 +41,15 @@ function displayProducts(products) {
     const img = document.createElement("img");
     img.src = imgURL;
     img.alt = name;
+
+    const productName = document.createElement("h3");
+    productName.textContent = name;
+
+    const productPrice = document.createElement("p");
+    productPrice.textContent = `$${priceDollars}`;
+
+    card.appendChild(img);
+    card.appendChild(productName);
+    card.appendChild(productPrice);
+
+    
