@@ -52,4 +52,10 @@ function displayProducts(products) {
     card.appendChild(productName);
     card.appendChild(productPrice);
 
-    
+        container.appendChild(card);
+  });
+}
+
+function handleError(error) {
+  console.log("An error occurred:", error.message);
+}
