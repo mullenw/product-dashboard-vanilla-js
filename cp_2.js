@@ -1,5 +1,5 @@
 function fetchProductsThen() {
-  fetch("https://www.course-api.com/javascript-store-products")
+  fetch("https://fakestoreapi.com/products")
     .then((response) => {
     
       return response.json();
@@ -7,7 +7,7 @@ function fetchProductsThen() {
     .then((data) => {
       console.log("Products loaded with .then():");
       data.forEach((product) => {
-        console.log(product.fields.name);
+        console.log(product.title);
       });
     })
     .catch((error) => {
@@ -17,7 +17,7 @@ function fetchProductsThen() {
 
 async function fetchProductsAsync() {
   try {
-    const response = await fetch("https://www.course-api.com/javascript-store-products");
+    const response = await fetch("https://fakestoreapi.com/products");
     const products = await response.json();
     displayProducts(products);
   } catch (error) {
@@ -27,23 +27,26 @@ async function fetchProductsAsync() {
 
 function displayProducts(products) {
   const container = document.getElementById("product-container");
-  container.innerHTML = "";
   const firstFive = products.slice(0, 5);
+  if (!container) {
+    console.log("Error: product-container not found");
+    return;
+  }
 
     firstFive.forEach((product) => {
-    const { name, price, image } = product.fields;
-    const imgURL = image[0].url;
-    const priceDollars = (price / 100).toFixed(2);
+    const { title, price, image } = product;
+    const imgURL = image;
+    const priceDollars = price.toFixed(2);
 
     const card = document.createElement("div");
     card.classList.add("product-card");
 
     const img = document.createElement("img");
     img.src = imgURL;
-    img.alt = name;
+    img.alt = title;
 
     const productName = document.createElement("h3");
-    productName.textContent = name;
+    productName.textContent = title;
 
     const productPrice = document.createElement("p");
     productPrice.textContent = `$${priceDollars}`;
@@ -57,10 +60,11 @@ function displayProducts(products) {
 }
 
 function handleError(error) {
+  const container = document.getElementById("product-container");
+  if (container) container.textContent = "Error loading products.";
   console.log("An error occurred:", error.message);
 }
-
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   fetchProductsThen();
   fetchProductsAsync();
 });
