@@ -34,7 +34,10 @@ function displayProducts(products) {
     const { name, price, image } = product.fields;
     const imgURL = image[0].url;
     const priceDollars = (price / 100).toFixed(2);
+
     const card = document.createElement("div");
     card.classList.add("product-card");
 
-    
+    const img = document.createElement("img");
+    img.src = imgURL;
+    img.alt = name;
